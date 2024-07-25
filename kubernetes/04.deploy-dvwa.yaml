@@ -1,0 +1,56 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+## Original version was developed by https://github.com/cytopia/docker-dvwa
+## Modified by YasuhiroABE <yasu@yasundial.org>
+## Licence: the original has been distributed by the MIT License, so this file is also distributed under the same MIT license.
+###
+### Deployment Metadata
+###
+metadata:
+  name: dvwa
+###
+### Specs
+###
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dvwa
+      tier: frontend
+  template:
+    # Template Metadata to be used by service for discovery
+    metadata:
+      labels:
+        app: dvwa
+        tier: frontend
+    spec:
+      containers:
+        - name: dvwa
+          image: docker.io/yasuhiroabe/sccp-dvwa:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+          env:
+            - name: DVWA_DB_SERVER
+              value: dvwa-mysql
+            - name: DVWA_DBNAME
+              value: dvwa
+            - name: DVWA_DBUSERNAME
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: username
+            - name: DVWA_DBPASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: password
+            - name: DVWA_ADMIN_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: mysql-secret
+                  key: dvwa-admin-password
+            - name: DVWA_WEB_CONTEXTROOT
+              value: "/dvwa/"
+

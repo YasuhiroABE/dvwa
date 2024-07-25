@@ -1,0 +1,58 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: dvwa-mysql
+  labels:
+    app: dvwa
+    tier: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: dvwa
+      tier: mysql
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: dvwa
+        tier: mysql
+    spec:
+      containers:
+      - name: dvwa-mysql
+        image: mysql:9.0.0
+        imagePullPolicy: Always
+        resources:
+          limits:
+            cpu: "200m"
+            memory: "512Mi"
+        ports:
+        - containerPort: 3306
+          name: mysql
+        env:
+        - name: MYSQL_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: admin-password
+        - name: MYSQL_USER
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: username
+        - name: MYSQL_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: mysql-secret
+              key: password
+        - name: MYSQL_DATABASE
+          value: "dvwa"
+        volumeMounts:
+        - name: mysqlfs
+          mountPath: /var/lib/mysql
+      volumes:
+      - name: mysqlfs
+        persistentVolumeClaim:
+          claimName: dvwa-mysql-pvc
+
