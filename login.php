@@ -33,7 +33,7 @@ if( isset( $_POST[ 'Login' ] ) ) {
 	$result = @mysqli_query($GLOBALS["___mysqli_ston"],  $query );
 	if( mysqli_num_rows( $result ) != 1 ) {
 		dvwaMessagePush( "First time using DVWA.<br />Need to run 'setup.php'." );
-		dvwaRedirect( DVWA_WEB_PAGE_TO_ROOT . 'setup.php' );
+		dvwaRedirect( $_DVWA[ 'web_contextroot' ] . 'setup.php' );
 	}
 
 	$query  = "SELECT * FROM `users` WHERE user='$user' AND password='$pass';";
@@ -41,7 +41,7 @@ if( isset( $_POST[ 'Login' ] ) ) {
 	if( $result && mysqli_num_rows( $result ) == 1 ) {    // Login Successful...
 		dvwaMessagePush( "You have logged in as '{$user}'" );
 		dvwaLogin( $user );
-		dvwaRedirect( DVWA_WEB_PAGE_TO_ROOT . 'index.php' );
+		dvwaRedirect( $_DVWA[ 'web_contextroot' ] . 'index.php' );
 	}
 
 	// Login failed
@@ -68,7 +68,7 @@ echo "<!DOCTYPE html>
 
 		<title>Login :: Damn Vulnerable Web Application (DVWA)</title>
 
-		<link rel=\"stylesheet\" type=\"text/css\" href=\"" . DVWA_WEB_PAGE_TO_ROOT . "dvwa/css/login.css\" />
+		<link rel=\"stylesheet\" type=\"text/css\" href=\"" . $_DVWA[ 'web_contextroot' ] . "dvwa/css/login.css\" />
 
 	</head>
 
@@ -80,7 +80,7 @@ echo "<!DOCTYPE html>
 
 	<br />
 
-	<p><img src=\"" . DVWA_WEB_PAGE_TO_ROOT . "dvwa/images/login_logo.png\" /></p>
+	<p><img src=\"" . $_DVWA[ 'web_contextroot' ] . "dvwa/images/login_logo.png\" /></p>
 
 	<br />
 

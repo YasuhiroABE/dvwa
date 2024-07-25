@@ -130,9 +130,10 @@ function &dvwaSessionGrab() {
 
 
 function dvwaPageStartup( $pActions ) {
+	global $_DVWA;
 	if (in_array('authenticated', $pActions)) {
 		if( !dvwaIsLoggedIn()) {
-			dvwaRedirect( DVWA_WEB_PAGE_TO_ROOT . 'login.php' );
+			dvwaRedirect( $_DVWA[ 'web_contextroot' ] . 'login.php' );
 		}
 	}
 }
@@ -161,11 +162,12 @@ function dvwaLogout() {
 
 
 function dvwaPageReload() {
+	global $_DVWA;
 	if  ( array_key_exists( 'HTTP_X_FORWARDED_PREFIX' , $_SERVER )) {
 		dvwaRedirect( $_SERVER[ 'HTTP_X_FORWARDED_PREFIX' ] . $_SERVER[ 'PHP_SELF' ] );
 	}
 	else {
-		dvwaRedirect( $_SERVER[ 'PHP_SELF' ] );
+		dvwaRedirect( $_DVWA[ 'web_contextroot' ] . $_SERVER[ 'PHP_SELF' ] );
 	}
 }
 
@@ -559,7 +561,7 @@ function dvwaDatabaseConnect() {
 			//die( $DBMS_connError );
 			dvwaLogout();
 			dvwaMessagePush( 'Unable to connect to the database.<br />' . mysqli_error($GLOBALS["___mysqli_ston"]));
-			dvwaRedirect( DVWA_WEB_PAGE_TO_ROOT . 'setup.php' );
+			dvwaRedirect( $_DVWA[ 'web_contextroot' ] . 'setup.php' );
 		}
 		// MySQL PDO Prepared Statements (for impossible levels)
 		$db = new PDO('mysql:host=' . $_DVWA[ 'db_server' ].';dbname=' . $_DVWA[ 'db_database' ].';port=' . $_DVWA['db_port'] . ';charset=utf8', $_DVWA[ 'db_user' ], $_DVWA[ 'db_password' ]);
