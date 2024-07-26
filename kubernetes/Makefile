@@ -1,5 +1,5 @@
 
-K8S_NAMESPACE = dvwa
+K8S_NAMESPACE = ${K8S_NAMESPACE:-dvwa}
 
 .PHONY: all
 all:
@@ -15,13 +15,13 @@ setup-secrets:
 
 .PHONY: extract-secrets
 extract-secrets:
-	@echo "root-password"
+	@echo -n "root-password:\t"
 	@kubectl -n $(K8S_NAMESPACE) get secret mysql-secret -o jsonpath={.data.admin-password} | base64 -d && echo ""
-	@echo "username"
+	@echo -n "username:\t"
 	@kubectl -n $(K8S_NAMESPACE) get secret mysql-secret -o jsonpath={.data.username} | base64 -d && echo ""
-	@echo "password"
+	@echo -n "password:\t"
 	@kubectl -n $(K8S_NAMESPACE) get secret mysql-secret -o jsonpath={.data.password} | base64 -d && echo ""
-	@echo "admin user's password"
+	@echo -n "dvwa admin password:\t"
 	@kubectl -n $(K8S_NAMESPACE) get secret mysql-secret -o jsonpath={.data.dvwa-admin-password} | base64 -d && echo ""
 
 .PHONY: delete-secrets
