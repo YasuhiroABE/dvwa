@@ -25,7 +25,7 @@ This container supports following environment variables.
 * DVWA_ADMIN_PASSWORD (default: password)
 
 The DVWA_ADMIN_PASSWORD will change the admin password from the default "password" to the specified one.
-However, use the admin/password to login the console when the initial login before preparing the database.
+The password will be effective after setting up the DB.
 
 ## MySQL Server
 
