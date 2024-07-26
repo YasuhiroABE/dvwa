@@ -46,11 +46,26 @@ docker-exec:
 
 .PHONY: docker-run
 docker-run:
-	$(DOCKER_CMD) run -it --rm  \
-		--env DVWA_DB_SERVER=192.168.1.1 \
+	$(DOCKER_CMD) run -it --rm  -d \
+		--env DVWA_DB_SERVER=10.1.1.1 \
 		--env DVWA_DBNAME=dvwa \
 		--env DVWA_DBUSERNAME=dvwa \
 		--env DVWA_DBPASSWORD=f3538c7cc848 \
 		-p 8080:80 \
 		--name $(NAME) \
 		$(DOCKER_IMAGE):latest
+
+.PHONY: docker-mysql-run
+docker-mysql-run:
+	$(DOCKER_CMD) run -it --rm -d \
+		--env MYSQL_ROOT_PASSWORD=$(shell openssl rand -hex 8) \
+		--env MYSQL_USER=dvwa \
+		--env MYSQL_PASSWORD=f3538c7cc848 \
+		--env MYSQL_DATABASE=dvwa \
+		-p 3306:3306 \
+		--name dvwa-mysql \
+		docker.io/library/mysql:9
+
+.PHONY: docker-mysql-stop
+docker-mysql-stop:
+	$(DOCKER_CMD) stop dvwa-mysql
