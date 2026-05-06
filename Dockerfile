@@ -1,4 +1,4 @@
-FROM docker.io/library/php:8-apache
+FROM docker.io/library/php:8.2-apache
 
 LABEL org.opencontainers.image.source=https://github.com/yasuhiroabe/dvwa
 LABEL org.opencontainers.image.description="Modifed DVWA container image (Original: https://github.com/digininja/DVWA)"
