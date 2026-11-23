@@ -81,3 +81,4 @@ docker-mysql-stop:
 .PHONY: git-push
 git-push:
 	git push
+	git push --tags
