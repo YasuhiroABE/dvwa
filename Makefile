@@ -32,6 +32,10 @@ docker-tag:
 docker-push:
 	$(DOCKER_CMD) push $(PROD_IMAGE_NAME)
 
+.PHONY: docker-push-inovtst9
+docker-push-inovtst9:
+	$(MAKE) REGISTRY_SERVER=inovtst9.u-aizu.ac.jp REGISTRY_LIBRARY=yasu-abe docker-push
+
 .PHONY: docker-stop
 docker-stop:
 	$(DOCKER_CMD) stop $(NAME)
