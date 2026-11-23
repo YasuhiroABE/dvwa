@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/sh
 
 sed -e "s!_DVWA_DB_SERVER_!${DVWA_DB_SERVER}!" \
     -e "s!_DVWA_DBNAME_!${DVWA_DBNAME}!" \
@@ -11,4 +11,5 @@ sed -e "s!_DVWA_DB_SERVER_!${DVWA_DB_SERVER}!" \
 sed -e "s/_DVWA_ADMIN_PASSWORD_/${DVWA_ADMIN_PASSWORD}/" \
     -i dvwa/includes/DBMS/MySQL.php
 
-exec apache2-foreground
+rm -f /run/apache2/httpd.pid
+exec httpd -D FOREGROUND

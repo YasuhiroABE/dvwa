@@ -35,6 +35,11 @@ $page[ 'body' ] .= "
 <div class=\"body_padded\">
 	<h1>Vulnerability: Command Injection</h1>
 
+	<div class=\"warning\">
+		<em>Note:</em> The <em>ping</em> command does not work in this container environment, because it requires the <em>NET_RAW</em> capability, which is not granted (e.g. on Kubernetes or rootless podman).
+		Submitting an IP address will not show any ping result, but the command injection itself still works.
+	</div>
+
 	<div class=\"vulnerable_code_area\">
 		<h2>Ping a device</h2>
 
