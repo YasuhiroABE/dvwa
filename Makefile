@@ -73,3 +73,7 @@ docker-mysql-run:
 .PHONY: docker-mysql-stop
 docker-mysql-stop:
 	$(DOCKER_CMD) stop dvwa-mysql
+
+.PHONY: git-push
+git-push:
+	git push
