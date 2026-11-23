@@ -1,7 +1,7 @@
 ## Note: Please be careful following points:
 ## 1. MySQL 9.x does not work well due to support MD5 function. Please use with the MySQL 8.x.
 
-FROM docker.io/library/php:8.2-apache
+FROM docker.io/library/php:8.5-apache
 
 LABEL org.opencontainers.image.source=https://github.com/yasuhiroabe/dvwa
 LABEL org.opencontainers.image.description="Modifed DVWA container image (Original: https://github.com/digininja/DVWA)"

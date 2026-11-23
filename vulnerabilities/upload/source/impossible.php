@@ -34,7 +34,9 @@ if( isset( $_POST[ 'Upload' ] ) ) {
 			$img = imagecreatefrompng( $uploaded_tmp );
 			imagepng( $img, $temp_file, 9);
 		}
-		imagedestroy( $img );
+		// imagedestroy() has had no effect since PHP 8.0 and is deprecated as of PHP 8.5.
+		// The GdImage object is freed once it is no longer referenced.
+		unset( $img );
 
 		// Can we move the file to the web root from the temp folder?
 		if( rename( $temp_file, ( getcwd() . DIRECTORY_SEPARATOR . $target_path . $target_file ) ) ) {
