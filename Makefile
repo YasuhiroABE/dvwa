@@ -68,7 +68,7 @@ docker-mysql-run:
 		--env MYSQL_DATABASE=dvwa \
 		-p 3306:3306 \
 		--name dvwa-mysql \
-		docker.io/library/mysql:9
+		docker.io/library/mysql:8
 
 .PHONY: docker-mysql-stop
 docker-mysql-stop:
