@@ -3,7 +3,7 @@ DOCKER_CMD = podman
 
 NAME = sccp-dvwa
 DOCKER_IMAGE = sccp-dvwa
-DOCKER_IMAGE_VERSION = 20261123.1300
+DOCKER_IMAGE_VERSION = 20261123.1400
 IMAGE_NAME = $(DOCKER_IMAGE):$(DOCKER_IMAGE_VERSION)
 
 DOCKER_FILE = Dockerfile
@@ -27,6 +27,10 @@ docker-build-prod:
 .PHONY: docker-tag
 docker-tag:
 	$(DOCKER_CMD) tag $(IMAGE_NAME) $(PROD_IMAGE_NAME)
+
+.PHONY: docker-tag-inovtst9
+docker-tag-inovtst9:
+	$(MAKE) REGISTRY_SERVER=inovtst9.u-aizu.ac.jp REGISTRY_LIBRARY=yasu-abe docker-tag
 
 .PHONY: docker-push
 docker-push:
